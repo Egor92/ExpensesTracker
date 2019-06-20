@@ -7,18 +7,9 @@ import io.reactivex.Observable
 import io.reactivex.functions.Consumer
 import java.util.*
 
-/*
-abstract class ReduxViewModel<S:Any, A:Any> : ViewModel() {
-    protected val inputRelay = PublishRelay.create<ExpenseListAction>()
-
-    val input : Consumer<ExpenseListAction> = inputRelay
-
-    abstract val state: Observable<ExpenseListState>
-}
-*/
 
 class ExpenseListViewModel : ViewModel() {
-    protected val inputRelay = PublishRelay.create<ExpenseListAction>()
+    private val inputRelay = PublishRelay.create<ExpenseListAction>()
 
     val input: Consumer<ExpenseListAction> = inputRelay
 

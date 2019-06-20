@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.item_expense.view.*
 
 class MainActivity : AppCompatActivity() {
 
-    private val expenseListAdapter by lazy { ExpenseListAdapter() }
+    private val expenseListAdapter = ExpenseListAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
