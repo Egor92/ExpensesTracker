@@ -1,10 +1,10 @@
 package com.trumpsoft.expensestracker.ui.expenseList
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.trumpsoft.expensestracker.R
@@ -12,8 +12,9 @@ import com.trumpsoft.expensestracker.application.ServiceLocator
 import com.trumpsoft.expensestracker.presentation.expenseList.ExpenseListAction
 import com.trumpsoft.expensestracker.presentation.expenseList.ExpenseListState
 import com.trumpsoft.expensestracker.presentation.expenseList.ExpenseListViewModel
+import com.trumpsoft.expensestracker.ui.expenseDetails.ExpenseDetailsActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_expense_list.*
 
 class ExpenseListActivity : AppCompatActivity() {
 
@@ -21,12 +22,19 @@ class ExpenseListActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_expense_list)
 
         expenseList.adapter = expenseListAdapter
         expenseList.layoutManager = LinearLayoutManager(this)
 
-        val viewModel = getViewModel { ExpenseListViewModel(ServiceLocator.expenseRepository) }
+        addExpenseButton.setOnClickListener {
+            val intent = Intent(this, ExpenseDetailsActivity::class.java)
+            startActivity(intent)
+        }
+
+        val viewModel = getViewModel {
+            ExpenseListViewModel(ServiceLocator.expenseRepository)
+        }
 
         viewModel.state
             .observeOn(AndroidSchedulers.mainThread())
